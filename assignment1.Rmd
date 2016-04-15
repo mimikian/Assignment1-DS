@@ -5,6 +5,7 @@ output: html_document
 Load Packages
 ```{r}
 library(RWeka)
+library(knitr)
 library(dplyr)
 ```
 
@@ -42,7 +43,7 @@ decision_trees_evaluation <- evaluate_Weka_classifier(decision_trees_model, numF
 #summary(decision_trees_evaluation)
 decision_trees_evaluation$details
 decision_trees_performance <- calculate_evaulation_metrics(decision_trees_evaluation)
-decision_trees_performance
+decision_trees_performance %>% kable
 ```
 
 Using Random Forest
@@ -54,7 +55,7 @@ randomForest_evaluation <- evaluate_Weka_classifier(random_forest_model, numFold
 #summary(randomForest_evaluation)
 randomForest_evaluation$details
 randomForest_performance <- calculate_evaulation_metrics(randomForest_evaluation)
-randomForest_performance
+randomForest_performance %>% kable
 ```
 
 
@@ -66,7 +67,7 @@ SVM_evaluation <- evaluate_Weka_classifier(SVM_model, numFolds = 10, class = TRU
 #summary(SVM_evaluation)
 SVM_evaluation$details
 SVM_performance <- calculate_evaulation_metrics(SVM_evaluation)
-SVM_performance
+SVM_performance %>% kable
 ```
 
 
@@ -79,7 +80,7 @@ NB_evaluation <- evaluate_Weka_classifier(NB_model, numFolds = 10, class = TRUE)
 #summary(NB_evaluation)
 NB_evaluation$details
 NB_performance <- calculate_evaulation_metrics(NB_evaluation)
-NB_performance
+NB_performance %>% kable
 ```
 
 
@@ -92,19 +93,19 @@ NN_evaluation <- evaluate_Weka_classifier(NN_model, numFolds = 10, class = TRUE)
 #summary(NN_evaluation)
 NN_evaluation$details
 NN_performance <- calculate_evaulation_metrics(NN_evaluation)
-NN_performance
+NN_performance %>% kable
 ```
 
-Models
+Bagging & Boosting
 ```{r}
 #Bagging
-bagging_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_model <- Bagging(V61 ~ ., data = sonar.df, control = Weka_control(W="J48"))
 #summary(bagging_model)
 bagging_evaluation <- evaluate_Weka_classifier(bagging_model, numFolds = 10, class = TRUE)
 #summary(bagging_evaluation)
 bagging_evaluation$details
 bagging_performance <- calculate_evaulation_metrics(bagging_evaluation)
-bagging_performance
+bagging_performance %>% kable
 
 #Boosting
 boosting_model <- AdaBoostM1(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
@@ -113,14 +114,17 @@ boosting_evaluation <- evaluate_Weka_classifier(boosting_model, numFolds = 10, c
 #summary(boosting_evaluation)
 boosting_evaluation$details
 boosting_performance <- calculate_evaulation_metrics(boosting_evaluation)
-boosting_performance
+boosting_performance %>% kable
 ```
 
 
 Comprison between all for the Sonar data
 ```{r}
-#rbind(decision_trees_performance, randomForest_performance, SVM_evaluation, NB_performance, NN_performance, bagging_performance, boosting_performance)
+rbind(decision_trees_performance, randomForest_performance, SVM_performance, NB_performance, NN_performance, bagging_performance, boosting_performance) %>% kable
 ```
+
+Results: 
+Random Forest achived the best results and decision trees is the worst. But when using bagging and boosting the decison trees as the base classifer the results have been improved.
 
 
 ```{r}
@@ -236,8 +240,8 @@ accuracy.df <-  rbind(accuracy.df, accuracy_hepatities)
 #SPECT
 accuracy_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$accuracy),random_forest = mean(random_forest_spect_performance$accuracy),svm =  mean(SMO_spect_performance$accuracy),naive_bayes = mean(NB_spect_performance$accuracy),bagging =  mean(bagging_spect_performance$accuracy), boosting = mean(boosting_spect_performance$accuracy))
 accuracy.df <-  rbind(accuracy.df, accuracy_spect)
-accuracy.df
-```
+accuracy.df %>% kable
+``` 
 
 #Precision Matrix
 ```{r}
@@ -254,7 +258,7 @@ precision.df <-  rbind(precision.df, precision_hepatities)
 #SPECT
 precision_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$precision),random_forest = mean(random_forest_spect_performance$precision),svm =  mean(SMO_spect_performance$precision),naive_bayes = mean(NB_spect_performance$precision),bagging =  mean(bagging_spect_performance$precision), boosting = mean(boosting_spect_performance$precision))
 precision.df <-  rbind(precision.df, precision_spect)
-precision.df
+precision.df %>% kable
 ```
 
 #Recall Matrix
@@ -273,7 +277,7 @@ recall.df <-  rbind(recall.df, recall_hepatities)
 #SPECT
 recall_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$recall),random_forest = mean(random_forest_spect_performance$recall),svm =  mean(SMO_spect_performance$recall),naive_bayes = mean(NB_spect_performance$recall),bagging =  mean(bagging_spect_performance$recall), boosting = mean(boosting_spect_performance$recall))
 recall.df <-  rbind(recall.df, recall_spect)
-recall.df
+recall.df %>% kable
 ```
 
 #F1 Matrix
@@ -291,11 +295,13 @@ f1.df <-  rbind(f1.df, f1_hepatities)
 #SPECT
 f1_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$f1),random_forest = mean(random_forest_spect_performance$f1),svm =  mean(SMO_spect_performance$f1),naive_bayes = mean(NB_spect_performance$f1),bagging =  mean(bagging_spect_performance$f1), boosting = mean(boosting_spect_performance$f1))
 f1.df <-  rbind(f1.df, f1_spect)
-f1.df
+f1.df %>% kable
 ```
 
+Results:
+The Random Forest SVM and boosting achieved good results specially in the F-score measure.
+The Decision trees achived the worst results
 
-#Accuracy Discussion
 ###T-Test
 We will check if two algorithms are statistically significant by applyting t-test and checking if the p-value less thatn 0.05 
 
@@ -331,8 +337,11 @@ sprintf("P-Value: NB vs Boosting %0.8f",t.test(NB_sonar,boosting_sonar)$p.value)
 
 ###Is there a clear and only winner?
 There are no clear winner as the perfomrance of the algorithms are quite close to each other.
+For example:
+Random forest achieved better results in the sonar dataset. However SVM and Boosting achived better results in the rest of the data sets.
+So, every data set has its own algorithm that which achives better results.
 
 ###Interpret the results.
-The Random Forest and Boosting achieved good results specially in the F-score measure.
+Overall Random Forest and SVM were good solutions specially in the F-score measure.
 The Neural netowrk achived good results but duo it complexity couldn't be tested duo 10 times 10-fold.
 
