@@ -1,0 +1,126 @@
+---
+title: "Assignment1"
+output: html_document
+---
+Load Packages
+```{r}
+library(RWeka)
+library(dplyr)
+```
+
+Helper Functions:
+```{r}
+calculate_evaulation_metrics <- function(evaluation){
+  confusionMatrix <- evaluation$confusionMatrix
+  TP <- confusionMatrix[1,1]
+  FN <- confusionMatrix[1,2]
+  FP <- confusionMatrix[2,1]
+  TN <- confusionMatrix[2,2]
+  percision <- TP/(TP+FP)
+  recall <- TP/(TP+FN)
+  f1 <- (2*percision*recall)/(percision+recall)
+  acc <- (TP+TN)/(TP+FN+FP+TN)
+  c(percision = percision, recall = recall, f1 = f1, accuracy = acc)
+}
+```
+Load Data
+```{r}
+sonar.df <- read.table("sonar data/sonar", sep=",")
+  
+```
+
+Using Decision Trees
+```{r}
+model <- J48(V61~., data=sonar.df)
+summary(model)
+decision_trees_evaluation <- evaluate_Weka_classifier(model, numFolds = 10, seed = 123, class = TRUE)
+#summary(decision_trees_evaluation)
+decision_trees_evaluation$details
+decision_trees_performance <- calculate_evaulation_metrics(decision_trees_evaluation)
+decision_trees_performance
+```
+
+Using Random Forest
+```{r}
+random_forest_model <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
+random_forest_model <- random_forest_model(V61 ~ ., data = sonar.df)
+#summary(random_forest_model)
+randomForest_evaluation <- evaluate_Weka_classifier(random_forest_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(randomForest_evaluation)
+randomForest_evaluation$details
+randomForest_performance <- calculate_evaulation_metrics(randomForest_evaluation)
+randomForest_performance
+```
+
+
+Using Random Forest
+```{r}
+SVM_model <- SMO(V61 ~ ., data = sonar.df)
+#summary(random_forest_model)
+SVM_evaluation <- evaluate_Weka_classifier(SVM_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(SVM_evaluation)
+SVM_evaluation$details
+SVM_performance <- calculate_evaulation_metrics(SVM_evaluation)
+SVM_performance
+```
+
+
+Using Naive Bayes
+```{r}
+NB_model <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
+NB_model <- NB_model(V61 ~ ., data = sonar.df)
+summary(NB_model)
+NB_evaluation <- evaluate_Weka_classifier(NB_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(NB_evaluation)
+NB_evaluation$details
+NB_performance <- calculate_evaulation_metrics(NB_evaluation)
+NB_performance
+```
+
+
+Using Neural Netowrks
+```{r}
+NN_model <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+NN_model <- NN_model(V61 ~ ., data = sonar.df)
+#summary(NN_model)
+NN_evaluation <- evaluate_Weka_classifier(NN_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(NN_evaluation)
+NN_evaluation$details
+NN_performance <- calculate_evaulation_metrics(NN_evaluation)
+NN_performance
+```
+
+
+Implement and test two of the ensemble learning methods : bagging & boosting, using C4.5as the base classifier. Train and test, just like the above algorithms, using a 10-fold cross-validation. Compare the performances of bagging and boosting to those of the base classifier C4.
+```{r}
+#Bagging
+bagging_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
+#summary(bagging_model)
+bagging_evaluation <- evaluate_Weka_classifier(bagging_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(bagging_evaluation)
+bagging_evaluation$details
+bagging_performance <- calculate_evaulation_metrics(bagging_evaluation)
+bagging_performance
+
+#Boosting
+boosting_model <- AdaBoostM1(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
+summary(boosting_model)
+boosting_evaluation <- evaluate_Weka_classifier(boosting_model, numFolds = 10, seed = 123, class = TRUE)
+#summary(boosting_evaluation)
+boosting_evaluation$details
+boosting_performance <- calculate_evaulation_metrics(boosting_evaluation)
+boosting_performance
+```
+
+
+Comprison between all
+```{r}
+rbind(decision_trees_performance, randomForest_performance, SVM_evaluation, NB_performance, NN_performance, bagging_performance, boosting_performance)
+```
+
+
+
+
+
+
+
