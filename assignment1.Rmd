@@ -96,7 +96,7 @@ NN_performance
 ```
 
 
-Implement and test two of the ensemble learning methods : bagging & boosting, using C4.5as the base classifier. Train and test, just like the above algorithms, using a 10-fold cross-validation. Compare the performances of bagging and boosting to those of the base classifier C4.
+Implement and test two of the ensemble learning methods vs bagging & boosting, using C4.5as the base classifier. Train and test, just like the above algorithms, using a 10-fold cross-validation. Compare the performances of bagging and boosting to those of the base classifier C4.
 ```{r}
 #Bagging
 bagging_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
@@ -140,41 +140,49 @@ evaluate_10time_10fold <- function(model){
 # Build Classifiers
 ```{r}
 diabetes.df$V9 <- as.factor(diabetes.df$V9)
-hepatitis.df$V20 <- as.factor(hepatitis.df$V20)
-spect.df$V23 <- as.factor(spect.df$V23)
+hepatitis.df$V1 <- as.factor(hepatitis.df$V1)
+spect.df$V1 <- as.factor(spect.df$V1)
 
 #Decision Trees
 decision_trees_diabetes_model <- J48(V9~., data=diabetes.df)
-decision_trees_hepatitis_model <- J48(V20~., data=hepatitis.df)
-decision_trees_spect_model <- J48(V23~., data=spect.df)
+decision_trees_hepatitis_model <- J48(V1~., data=hepatitis.df)
+decision_trees_spect_model <- J48(V1~., data=spect.df)
+decision_trees_sonar_model <- J48(V61~., data=sonar.df)
 
+decision_trees_sonar_performance <- evaluate_10time_10fold(decision_trees_sonar_model)
 decision_trees_diabetes_performance <- evaluate_10time_10fold(decision_trees_diabetes_model)
 decision_trees_hepatities_performance <- evaluate_10time_10fold(decision_trees_hepatitis_model)
 decision_trees_spect_performance <- evaluate_10time_10fold(decision_trees_spect_model)
 
 #Random Forest
 random_forest_diabetes_model <- random_forest_classifier(V9~., data=diabetes.df)
-random_forest_hepatitis_model <- random_forest_classifier(V20~., data=hepatitis.df)
-random_forest_spect_model <- random_forest_classifier(V23~., data=spect.df)
+random_forest_hepatitis_model <- random_forest_classifier(V1~., data=hepatitis.df)
+random_forest_spect_model <- random_forest_classifier(V1~., data=spect.df)
+random_forest_sonar_model <- random_forest_classifier(V61~., data=sonar.df)
 
+random_forest_sonar_performance <- evaluate_10time_10fold(random_forest_sonar_model)
 random_forest_diabetes_performance <- evaluate_10time_10fold(random_forest_diabetes_model)
 random_forest_hepatities_performance <- evaluate_10time_10fold(random_forest_hepatitis_model)
 random_forest_spect_performance <- evaluate_10time_10fold(random_forest_spect_model)
 
 #Support Vector Machines
 SMO_diabetes_model <- SMO(V9~., data=diabetes.df)
-SMO_hepatitis_model <- SMO(V20~., data=hepatitis.df)
-SMO_spect_model <- SMO(V23~., data=spect.df)
+SMO_hepatitis_model <- SMO(V1~., data=hepatitis.df)
+SMO_spect_model <- SMO(V1~., data=spect.df)
+SMO_sonar_model <- SMO(V61~., data=sonar.df)
 
+SMO_sonar_performance <- evaluate_10time_10fold(SMO_sonar_model)
 SMO_diabetes_performance <- evaluate_10time_10fold(SMO_diabetes_model)
 SMO_hepatities_performance <- evaluate_10time_10fold(SMO_hepatitis_model)
 SMO_spect_performance <- evaluate_10time_10fold(SMO_spect_model)
 
 #Naive Bias
 NB_diabetes_model <- NB_classifier(V9~., data=diabetes.df)
-NB_hepatitis_model <- NB_classifier(V20~., data=hepatitis.df)
-NB_spect_model <- NB_classifier(V23~., data=spect.df)
+NB_hepatitis_model <- NB_classifier(V1~., data=hepatitis.df)
+NB_spect_model <- NB_classifier(V1~., data=spect.df)
+NB_sonar_model <- NB_classifier(V61~., data=sonar.df)
 
+NB_sonar_performance <- evaluate_10time_10fold(NB_sonar_model)
 NB_diabetes_performance <- evaluate_10time_10fold(NB_diabetes_model)
 NB_hepatities_performance <- evaluate_10time_10fold(NB_hepatitis_model)
 NB_spect_performance <- evaluate_10time_10fold(NB_spect_model)
@@ -182,27 +190,33 @@ NB_spect_performance <- evaluate_10time_10fold(NB_spect_model)
 #Neural Networks
 # note: Takes alot of time to compute
 #NN_diabetes_model <- NN_classifier(V9~., data=diabetes.df)
-#NN_hepatitis_model <- NN_classifier(V20~., data=hepatitis.df)
-#NN_spect_model <- NN_classifier(V23~., data=spect.df)
+#NN_hepatitis_model <- NN_classifier(V1~., data=hepatitis.df)
+#NN_spect_model <- NN_classifier(V1~., data=spect.df)
+#NN_sonar_model <- NN_classifier(V61~., data=sonar.df)
 
+#NB_sonar_performance <- NN_diabetes_model(NB_sonar_model)
 #NB_diabetes_performance <- NN_diabetes_model(NB_diabetes_model)
 #NB_hepatities_performance <- NN_hepatitis_model(NB_hepatitis_model)
 #NB_spect_performance <- NN_spect_model(NB_spect_model)
 
 #Bagging
 bagging_diabetes_model <- Bagging(V9~., data=diabetes.df, control = Weka_control(W = list(J48, M = 30)))
-bagging_hepatitis_model <- Bagging(V20~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
-bagging_spect_model <- Bagging(V23~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_hepatitis_model <- Bagging(V1~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_spect_model <- Bagging(V1~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_sonar_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 
+bagging_sonar_performance <- evaluate_10time_10fold(bagging_sonar_model)
 bagging_diabetes_performance <- evaluate_10time_10fold(bagging_diabetes_model)
 bagging_hepatities_performance <- evaluate_10time_10fold(bagging_hepatitis_model)
 bagging_spect_performance <- evaluate_10time_10fold(bagging_spect_model)
 
 #Boosting
 boosting_diabetes_model <- AdaBoostM1(V9~., data=diabetes.df, control = Weka_control(W = list(J48, M = 30)))
-boosting_hepatitis_model <- AdaBoostM1(V20~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
-boosting_spect_model <- AdaBoostM1(V23~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+boosting_hepatitis_model <- AdaBoostM1(V1~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
+boosting_spect_model <- AdaBoostM1(V1~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+boosting_sonar_model <- AdaBoostM1(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 
+boosting_sonar_performance <- evaluate_10time_10fold(boosting_sonar_model)
 boosting_diabetes_performance <- evaluate_10time_10fold(boosting_diabetes_model)
 boosting_hepatities_performance <- evaluate_10time_10fold(boosting_hepatitis_model)
 boosting_spect_performance <- evaluate_10time_10fold(boosting_spect_model)
@@ -211,6 +225,9 @@ boosting_spect_performance <- evaluate_10time_10fold(boosting_spect_model)
 #Accuarcy Matrix
 ```{r}
 accuracy.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Sonar
+accuracy_sonar <- data.frame(datasetName ="Sonar",decision_tree = mean(decision_trees_sonar_performance$accuracy),random_forest = mean(random_forest_sonar_performance$accuracy), svm = mean(SMO_sonar_performance$accuracy), naive_bayes = mean(NB_sonar_performance$accuracy), bagging = mean(bagging_sonar_performance$accuracy), boosting =mean(boosting_sonar_performance$accuracy))
+accuracy.df <-  rbind(accuracy.df, accuracy_sonar)
 #Diabetes
 accuracy_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$accuracy),random_forest = mean(random_forest_diabetes_performance$accuracy), svm = mean(SMO_diabetes_performance$accuracy), naive_bayes = mean(NB_diabetes_performance$accuracy), bagging = mean(bagging_diabetes_performance$accuracy), boosting =mean(boosting_diabetes_performance$accuracy))
 accuracy.df <-  rbind(accuracy.df, accuracy_diabetes)
@@ -226,6 +243,9 @@ accuracy.df
 #Precision Matrix
 ```{r}
 precision.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Sonar
+precision_sonar <- data.frame(datasetName ="sonar",decision_tree = mean(decision_trees_sonar_performance$precision),random_forest = mean(random_forest_sonar_performance$precision), svm = mean(SMO_sonar_performance$precision), naive_bayes = mean(NB_sonar_performance$precision), bagging = mean(bagging_sonar_performance$precision), boosting =mean(boosting_sonar_performance$precision))
+precision.df <-  rbind(precision.df, precision_sonar)
 #Diabetes
 precision_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$precision),random_forest = mean(random_forest_diabetes_performance$precision), svm = mean(SMO_diabetes_performance$precision), naive_bayes = mean(NB_diabetes_performance$precision), bagging = mean(bagging_diabetes_performance$precision), boosting =mean(boosting_diabetes_performance$precision))
 precision.df <-  rbind(precision.df, precision_diabetes)
@@ -241,6 +261,10 @@ precision.df
 #Recall Matrix
 ```{r}
 recall.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+
+#Sonar
+recall_sonar <- data.frame(datasetName ="sonar",decision_tree = mean(decision_trees_sonar_performance$recall),random_forest = mean(random_forest_sonar_performance$recall), svm = mean(SMO_sonar_performance$recall), naive_bayes = mean(NB_sonar_performance$recall), bagging = mean(bagging_sonar_performance$recall), boosting =mean(boosting_sonar_performance$recall))
+recall.df <-  rbind(recall.df, recall_sonar)
 #Diabetes
 recall_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$recall),random_forest = mean(random_forest_diabetes_performance$recall), svm = mean(SMO_diabetes_performance$recall), naive_bayes = mean(NB_diabetes_performance$recall), bagging = mean(bagging_diabetes_performance$recall), boosting =mean(boosting_diabetes_performance$recall))
 recall.df <-  rbind(recall.df, recall_diabetes)
@@ -256,6 +280,9 @@ recall.df
 #F1 Matrix
 ```{r}
 f1.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Sonar
+f1_sonar <- data.frame(datasetName ="sonar",decision_tree = mean(decision_trees_sonar_performance$f1),random_forest = mean(random_forest_sonar_performance$f1), svm = mean(SMO_sonar_performance$f1), naive_bayes = mean(NB_sonar_performance$f1), bagging = mean(bagging_sonar_performance$f1), boosting =mean(boosting_sonar_performance$f1))
+f1.df <-  rbind(f1.df, f1_sonar)
 #Diabetes
 f1_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$f1),random_forest = mean(random_forest_diabetes_performance$f1), svm = mean(SMO_diabetes_performance$f1), naive_bayes = mean(NB_diabetes_performance$f1), bagging = mean(bagging_diabetes_performance$f1), boosting =mean(boosting_diabetes_performance$f1))
 f1.df <-  rbind(f1.df, f1_diabetes)
@@ -268,4 +295,46 @@ f1.df <-  rbind(f1.df, f1_spect)
 f1.df
 ```
 
+
+#Accuracy Discussion
+###T-Test
+We will check if two algorithms are statistically significant by applyting t-test and checking if the p-value less thatn 0.05 
+
+Sonar DataSet
+```{r}
+decision_trees_sonar <- c(decision_trees_sonar_performance$accuracy, decision_trees_sonar_performance$recall, decision_trees_sonar_performance$precision, decision_trees_sonar_performance$f1)
+
+random_forest_sonar <- c(random_forest_sonar_performance$accuracy, random_forest_sonar_performance$recall, random_forest_sonar_performance$precision, random_forest_sonar_performance$f1)
+
+NB_sonar <- c(NB_sonar_performance$accuracy, NB_sonar_performance$recall, NB_sonar_performance$precision, NB_sonar_performance$f1)
+
+bagging_sonar <- c(bagging_sonar_performance$accuracy, bagging_sonar_performance$recall, bagging_sonar_performance$precision, bagging_sonar_performance$f1)
+
+boosting_sonar <- c(boosting_sonar_performance$accuracy, boosting_sonar_performance$recall, boosting_sonar_performance$precision, boosting_sonar_performance$f1)
+
+SMO_sonar <- c(SMO_sonar_performance$accuracy, SMO_sonar_performance$recall, SMO_sonar_performance$precision, SMO_sonar_performance$f1)
+printf("P-Value: Decision Tree vs Random Forest %.5f",t.test(decision_trees_sonar,random_forest_sonar)$p.value )
+printf("P-Value: Decision Tree vs NB %.5f",t.test(decision_trees_sonar,NB_sonar)$p.value)
+printf("P-Value: Decision Tree vs SMO %.5f",t.test(decision_trees_sonar,SMO_sonar)$p.value)
+printf("P-Value: Decision Tree vs Bagging %.5f",t.test(decision_trees_sonar,bagging_sonar)$p.value)
+printf("P-Value: Decision Tree vs Boosting %.5f",t.test(decision_trees_sonar,boosting_sonar)$p.value)
+printf("P-Value: Random Forest vs NB %.5f",t.test(random_forest_sonar,NB_sonar)$p.value)
+printf("P-Value: Random Forest vs SMO %.5f",t.test(random_forest_sonar,SMO_sonar)$p.value)
+printf("P-Value: Random Forest vs Bagging %.5f",t.test(random_forest_sonar,bagging_sonar)$p.value)
+printf("P-Value: Random Forest vs Boosting %.5f",t.test(random_forest_sonar,boosting_sonar)$p.value)
+printf("P-Value: NB vs SMO %.5f",t.test(NB_sonar,SMO_sonar)$p.value)
+printf("P-Value: NB vs Bagging %.5f",t.test(NB_sonar,bagging_sonar)$p.value)
+printf("P-Value: NB vs Boosting %.5f",t.test(NB_sonar,boosting_sonar)$p.value)
+printf("P-Value: NB vs Bagging %.5f",t.test(SMO_sonar,bagging_sonar)$p.value)
+printf("P-Value: NB vs Boosting %.5f",t.test(NB_sonar,boosting_sonar)$p.value)
+```
+
+
+Which algorithm performs statistically significantly better overall(has the most wins)?
+
+
+###Is there a clear and only winner?
+There are no clear winner as the perfomrance of the algorithms are quite close to each other.
+
+###Interpret the results.
 
