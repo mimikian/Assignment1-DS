@@ -95,8 +95,7 @@ NN_performance <- calculate_evaulation_metrics(NN_evaluation)
 NN_performance
 ```
 
-
-Implement and test two of the ensemble learning methods vs bagging & boosting, using C4.5as the base classifier. Train and test, just like the above algorithms, using a 10-fold cross-validation. Compare the performances of bagging and boosting to those of the base classifier C4.
+Models
 ```{r}
 #Bagging
 bagging_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
@@ -313,28 +312,26 @@ bagging_sonar <- c(bagging_sonar_performance$accuracy, bagging_sonar_performance
 boosting_sonar <- c(boosting_sonar_performance$accuracy, boosting_sonar_performance$recall, boosting_sonar_performance$precision, boosting_sonar_performance$f1)
 
 SMO_sonar <- c(SMO_sonar_performance$accuracy, SMO_sonar_performance$recall, SMO_sonar_performance$precision, SMO_sonar_performance$f1)
-printf("P-Value: Decision Tree vs Random Forest %.5f",t.test(decision_trees_sonar,random_forest_sonar)$p.value )
-printf("P-Value: Decision Tree vs NB %.5f",t.test(decision_trees_sonar,NB_sonar)$p.value)
-printf("P-Value: Decision Tree vs SMO %.5f",t.test(decision_trees_sonar,SMO_sonar)$p.value)
-printf("P-Value: Decision Tree vs Bagging %.5f",t.test(decision_trees_sonar,bagging_sonar)$p.value)
-printf("P-Value: Decision Tree vs Boosting %.5f",t.test(decision_trees_sonar,boosting_sonar)$p.value)
-printf("P-Value: Random Forest vs NB %.5f",t.test(random_forest_sonar,NB_sonar)$p.value)
-printf("P-Value: Random Forest vs SMO %.5f",t.test(random_forest_sonar,SMO_sonar)$p.value)
-printf("P-Value: Random Forest vs Bagging %.5f",t.test(random_forest_sonar,bagging_sonar)$p.value)
-printf("P-Value: Random Forest vs Boosting %.5f",t.test(random_forest_sonar,boosting_sonar)$p.value)
-printf("P-Value: NB vs SMO %.5f",t.test(NB_sonar,SMO_sonar)$p.value)
-printf("P-Value: NB vs Bagging %.5f",t.test(NB_sonar,bagging_sonar)$p.value)
-printf("P-Value: NB vs Boosting %.5f",t.test(NB_sonar,boosting_sonar)$p.value)
-printf("P-Value: NB vs Bagging %.5f",t.test(SMO_sonar,bagging_sonar)$p.value)
-printf("P-Value: NB vs Boosting %.5f",t.test(NB_sonar,boosting_sonar)$p.value)
+sprintf("P-Value: Decision Tree vs Random Forest %0.8f",t.test(decision_trees_sonar,random_forest_sonar)$p.value )
+sprintf("P-Value: Decision Tree vs NB %0.8f",t.test(decision_trees_sonar,NB_sonar)$p.value)
+sprintf("P-Value: Decision Tree vs SMO %0.8f",t.test(decision_trees_sonar,SMO_sonar)$p.value)
+sprintf("P-Value: Decision Tree vs Bagging %0.8f",t.test(decision_trees_sonar,bagging_sonar)$p.value)
+sprintf("P-Value: Decision Tree vs Boosting %0.8f",t.test(decision_trees_sonar,boosting_sonar)$p.value)
+sprintf("P-Value: Random Forest vs NB %0.8f",t.test(random_forest_sonar,NB_sonar)$p.value)
+sprintf("P-Value: Random Forest vs SMO %0.8f",t.test(random_forest_sonar,SMO_sonar)$p.value)
+sprintf("P-Value: Random Forest vs Bagging %0.8f",t.test(random_forest_sonar,bagging_sonar)$p.value)
+sprintf("P-Value: Random Forest vs Boosting %0.8f",t.test(random_forest_sonar,boosting_sonar)$p.value)
+sprintf("P-Value: NB vs SMO %0.8f",t.test(NB_sonar,SMO_sonar)$p.value)
+sprintf("P-Value: NB vs Bagging %0.8f",t.test(NB_sonar,bagging_sonar)$p.value)
+sprintf("P-Value: NB vs Boosting %0.8f",t.test(NB_sonar,boosting_sonar)$p.value)
+sprintf("P-Value: NB vs Bagging %0.8f",t.test(SMO_sonar,bagging_sonar)$p.value)
+sprintf("P-Value: NB vs Boosting %0.8f",t.test(NB_sonar,boosting_sonar)$p.value)
 ```
-
-
-Which algorithm performs statistically significantly better overall(has the most wins)?
 
 
 ###Is there a clear and only winner?
 There are no clear winner as the perfomrance of the algorithms are quite close to each other.
 
 ###Interpret the results.
+The Neural netowrk achived good results but duo it complexity couldn't be tested duo 10 times 10-fold.
 
