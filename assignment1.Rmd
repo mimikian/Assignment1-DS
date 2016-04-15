@@ -203,10 +203,10 @@ NB_spect_performance <- evaluate_10time_10fold(NB_spect_model)
 #NB_spect_performance <- NN_spect_model(NB_spect_model)
 
 #Bagging
-bagging_diabetes_model <- Bagging(V9~., data=diabetes.df, control = Weka_control(W = list(J48, M = 30)))
-bagging_hepatitis_model <- Bagging(V1~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
-bagging_spect_model <- Bagging(V1~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
-bagging_sonar_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_diabetes_model <- Bagging(V9 ~ ., data = diabetes.df, control = Weka_control(W="J48"))
+bagging_hepatitis_model <- Bagging(V1 ~ ., data = hepatitis.df, control = Weka_control(W="J48"))
+bagging_spect_model <- Bagging(V1 ~ ., data = spect.df, control = Weka_control(W="J48"))
+bagging_sonar_model <- Bagging(V61 ~ ., data = sonar.df, control = Weka_control(W="J48"))
 
 bagging_sonar_performance <- evaluate_10time_10fold(bagging_sonar_model)
 bagging_diabetes_performance <- evaluate_10time_10fold(bagging_diabetes_model)
@@ -300,7 +300,7 @@ f1.df %>% kable
 
 Results:
 The Random Forest SVM and boosting achieved good results specially in the F-score measure.
-The Decision trees achived the worst results
+The Decision trees and Bagging achived the worst results
 
 ###T-Test
 We will check if two algorithms are statistically significant by applyting t-test and checking if the p-value less thatn 0.05 
