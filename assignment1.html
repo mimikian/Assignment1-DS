@@ -151,15 +151,15 @@ decision_trees_evaluation &lt;- evaluate_Weka_classifier(decision_trees_model, n
 #summary(decision_trees_evaluation)
 decision_trees_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               72.5961538               27.4038462                0.0000000 
+##               72.1153846               27.8846154                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.4476332                0.2758145                0.5050382 
+##                0.4404972                0.2800085                0.5160378 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               55.4049572              101.2247377</code></pre>
+##               56.2474332              103.4293931</code></pre>
 <pre class="r"><code>decision_trees_performance &lt;- calculate_evaulation_metrics(decision_trees_evaluation)
 decision_trees_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.7327586 0.7657658 0.7488987 0.7259615</code></pre>
+## 1 0.7431193 0.7297297 0.7363636 0.7211538</code></pre>
 <p>Using Random Forest</p>
 <pre class="r"><code>random_forest_classifier &lt;- make_Weka_classifier(&quot;weka/classifiers/trees/RandomForest&quot;)
 random_forest_model &lt;- random_forest_classifier(V61 ~ ., data = sonar.df)
@@ -170,13 +170,13 @@ randomForest_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
 ##               84.1346154               15.8653846                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.6789523                0.3062500                0.3534949 
+##                0.6781092                0.3079327                0.3554568 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               61.5187649               70.8509417</code></pre>
+##               61.8567801               71.2441575</code></pre>
 <pre class="r"><code>randomForest_performance &lt;- calculate_evaulation_metrics(randomForest_evaluation)
 randomForest_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.8196721 0.9009009 0.8583691 0.8413462</code></pre>
+## 1 0.8095238 0.9189189 0.8607595 0.8413462</code></pre>
 <p>Using Support Vector</p>
 <pre class="r"><code>SVM_model &lt;- SMO(V61 ~ ., data = sonar.df)
 #summary(random_forest_model)
@@ -184,15 +184,15 @@ SVM_evaluation &lt;- evaluate_Weka_classifier(SVM_model, numFolds = 10, class = 
 #summary(SVM_evaluation)
 SVM_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               78.3653846               21.6346154                0.0000000 
+##               75.4807692               24.5192308                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5644891                0.2163462                0.4651303 
+##                0.5051316                0.2451923                0.4951690 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               43.4590961               93.2259993</code></pre>
+##               49.2536422               99.2466551</code></pre>
 <pre class="r"><code>SVM_performance &lt;- calculate_evaulation_metrics(SVM_evaluation)
 SVM_performance</code></pre>
-<pre><code>##   precision    recall  f1  accuracy
-## 1 0.7894737 0.8108108 0.8 0.7836538</code></pre>
+<pre><code>##   precision    recall        f1  accuracy
+## 1 0.7542373 0.8018018 0.7772926 0.7548077</code></pre>
 <p>Using Naive Bayes</p>
 <pre class="r"><code>NB_classifier &lt;- make_Weka_classifier(&quot;weka/classifiers/bayes/NaiveBayes&quot;)
 NB_model &lt;- NB_classifier(V61 ~ ., data = sonar.df)
@@ -222,13 +222,13 @@ NB_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
 ##               67.7884615               32.2115385                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.3648131                0.3186693                0.5355553 
+##                0.3656227                0.3195585                0.5381030 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               64.0135273              107.3412740</code></pre>
+##               64.1921423              107.8519143</code></pre>
 <pre class="r"><code>NB_performance &lt;- calculate_evaulation_metrics(NB_evaluation)
 NB_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.7682927 0.5675676 0.6528497 0.6778846</code></pre>
+## 1     0.775 0.5585586 0.6492147 0.6778846</code></pre>
 <p>Using Neural Netowrks</p>
 <pre class="r"><code>NN_classifier &lt;- make_Weka_classifier(&quot;weka/classifiers/functions/MultilayerPerceptron&quot;)
 NN_model &lt;- NN_classifier(V61 ~ ., data = sonar.df)
@@ -237,16 +237,16 @@ NN_evaluation &lt;- evaluate_Weka_classifier(NN_model, numFolds = 10, class = TR
 #summary(NN_evaluation)
 NN_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               84.6153846               15.3846154                0.0000000 
+##               79.3269231               20.6730769                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.6901015                0.1560559                0.3616677 
+##                0.5843866                0.2104976                0.4224114 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               31.3481337               72.4890120</code></pre>
+##               42.2842458               84.6638671</code></pre>
 <pre class="r"><code>NN_performance &lt;- calculate_evaulation_metrics(NN_evaluation)
 NN_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.8434783 0.8738739 0.8584071 0.8461538</code></pre>
-<p>Implement and test two of the ensemble learning methods vs bagging &amp; boosting, using C4.5as the base classifier. Train and test, just like the above algorithms, using a 10-fold cross-validation. Compare the performances of bagging and boosting to those of the base classifier C4.</p>
+## 1 0.8035714 0.8108108 0.8071749 0.7932692</code></pre>
+<p>Models</p>
 <pre class="r"><code>#Bagging
 bagging_model &lt;- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 #summary(bagging_model)
@@ -254,15 +254,15 @@ bagging_evaluation &lt;- evaluate_Weka_classifier(bagging_model, numFolds = 10, 
 #summary(bagging_evaluation)
 bagging_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               73.0769231               26.9230769                0.0000000 
+##               71.6346154               28.3653846                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.4562599                0.3626314                0.4163939 
+##                0.4244982                0.3698143                0.4322717 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               72.8445168               83.4577692</code></pre>
+##               74.2874110               86.6401680</code></pre>
 <pre class="r"><code>bagging_performance &lt;- calculate_evaulation_metrics(bagging_evaluation)
 bagging_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.7310924 0.7837838 0.7565217 0.7307692</code></pre>
+## 1 0.7063492 0.8018018 0.7510549 0.7163462</code></pre>
 <pre class="r"><code>#Boosting
 boosting_model &lt;- AdaBoostM1(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 summary(boosting_model)</code></pre>
@@ -289,15 +289,15 @@ summary(boosting_model)</code></pre>
 #summary(boosting_evaluation)
 boosting_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               77.4038462               22.5961538                0.0000000 
+##               83.6538462               16.3461538                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5474912                0.2276581                0.4097484 
+##                0.6711615                0.1937471                0.3650565 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               45.7314117               82.1258308</code></pre>
+##               38.9194596               73.1682251</code></pre>
 <pre class="r"><code>boosting_performance &lt;- calculate_evaulation_metrics(boosting_evaluation)
 boosting_performance</code></pre>
 <pre><code>##   precision    recall        f1  accuracy
-## 1 0.8018868 0.7657658 0.7834101 0.7740385</code></pre>
+## 1  0.840708 0.8558559 0.8482143 0.8365385</code></pre>
 <p>Comprison between all for the Sonar data</p>
 <pre class="r"><code>#rbind(decision_trees_performance, randomForest_performance, SVM_evaluation, NB_performance, NN_performance, bagging_performance, boosting_performance)</code></pre>
 <pre class="r"><code>evaluate_10time_10fold &lt;- function(model){
@@ -411,15 +411,15 @@ accuracy_spect &lt;- data.frame(datasetName = &quot;SPECT&quot;,decision_tree= m
 accuracy.df &lt;-  rbind(accuracy.df, accuracy_spect)
 accuracy.df</code></pre>
 <pre><code>##   datasetName decision_tree random_forest       svm naive_bayes   bagging
-## 1       Sonar     0.7264423     0.8432692 0.7778846   0.6807692 0.7413462
-## 2    Diabetes     0.7436198     0.7623698 0.7680990   0.7555990 0.7597656
-## 3   Hepatitis     0.8309677     0.8012903 0.8096774   0.8212903 0.7935484
-## 4       SPECT     0.8044944     0.8134831 0.8277154   0.7651685 0.7928839
+## 1       Sonar     0.7307692     0.8394231 0.7677885   0.6817308 0.7317308
+## 2    Diabetes     0.7404948     0.7617188 0.7690104   0.7567708 0.7554688
+## 3   Hepatitis     0.8309677     0.7987097 0.8051613   0.8212903 0.7935484
+## 4       SPECT     0.8071161     0.8220974 0.8303371   0.7655431 0.7940075
 ##    boosting
-## 1 0.8067308
-## 2 0.7365885
-## 3 0.7922581
-## 4 0.8254682</code></pre>
+## 1 0.8096154
+## 2 0.7414063
+## 3 0.7916129
+## 4 0.8179775</code></pre>
 </div>
 <div id="precision-matrix" class="section level1">
 <h1>Precision Matrix</h1>
@@ -438,15 +438,15 @@ precision_spect &lt;- data.frame(datasetName = &quot;SPECT&quot;,decision_tree= 
 precision.df &lt;-  rbind(precision.df, precision_spect)
 precision.df</code></pre>
 <pre><code>##   datasetName decision_tree random_forest       svm naive_bayes   bagging
-## 1       sonar     0.7418018     0.8175340 0.7854833   0.7681472 0.7318181
-## 2    Diabetes     0.7915737     0.7998441 0.7816282   0.7959173 0.7870163
-## 3   Hepatitis     0.6342940     0.7516667 0.5413304   0.5526808       NaN
-## 4       SPECT     0.5293736     0.5584855 0.5931283   0.4581144       NaN
+## 1       sonar     0.7473816     0.8126187 0.7738245   0.7733108 0.7209415
+## 2    Diabetes     0.7839940     0.7982694 0.7817944   0.7977289 0.7845808
+## 3   Hepatitis     0.6360494     0.6683333 0.5290738   0.5544663       NaN
+## 4       SPECT     0.5392966     0.5829344 0.5999211   0.4586995       NaN
 ##    boosting
-## 1 0.8082387
-## 2 0.7839328
-## 3 0.4978949
-## 4 0.5959697</code></pre>
+## 1 0.8122530
+## 2 0.7897363
+## 3 0.4984844
+## 4 0.5722050</code></pre>
 </div>
 <div id="recall-matrix" class="section level1">
 <h1>Recall Matrix</h1>
@@ -465,16 +465,16 @@ recall.df &lt;-  rbind(recall.df, recall_hepatities)
 recall_spect &lt;- data.frame(datasetName = &quot;SPECT&quot;,decision_tree= mean(decision_trees_spect_performance$recall),random_forest = mean(random_forest_spect_performance$recall),svm =  mean(SMO_spect_performance$recall),naive_bayes = mean(NB_spect_performance$recall),bagging =  mean(bagging_spect_performance$recall), boosting = mean(boosting_spect_performance$recall))
 recall.df &lt;-  rbind(recall.df, recall_spect)
 recall.df</code></pre>
-<pre><code>##   datasetName decision_tree random_forest       svm naive_bayes    bagging
-## 1       sonar     0.7477477     0.9099099 0.8036036   0.5756757 0.81351351
-## 2    Diabetes     0.8232000     0.8470000 0.8934000   0.8400000 0.86520000
-## 3   Hepatitis     0.4343750     0.0656250 0.5187500   0.7031250 0.00000000
-## 4       SPECT     0.4836364     0.4654545 0.5363636   0.7618182 0.01090909
+<pre><code>##   datasetName decision_tree random_forest       svm naive_bayes   bagging
+## 1       sonar     0.7495495     0.9090090 0.7981982   0.5711712 0.8117117
+## 2    Diabetes     0.8304000     0.8484000 0.8950000   0.8392000 0.8608000
+## 3   Hepatitis     0.4281250     0.0625000 0.5250000   0.6875000 0.0000000
+## 4       SPECT     0.4727273     0.4818182 0.5327273   0.7618182 0.0000000
 ##    boosting
-## 1 0.8360360
-## 2 0.8220000
-## 3 0.4312500
-## 4 0.4763636</code></pre>
+## 1 0.8369369
+## 2 0.8216000
+## 3 0.4250000
+## 4 0.4636364</code></pre>
 </div>
 <div id="f1-matrix" class="section level1">
 <h1>F1 Matrix</h1>
@@ -493,15 +493,15 @@ f1_spect &lt;- data.frame(datasetName = &quot;SPECT&quot;,decision_tree= mean(de
 f1.df &lt;-  rbind(f1.df, f1_spect)
 f1.df</code></pre>
 <pre><code>##   datasetName decision_tree random_forest       svm naive_bayes   bagging
-## 1       sonar     0.7445941     0.8611434 0.7943345   0.6580713 0.7703568
-## 2    Diabetes     0.8068920     0.8227299 0.8337829   0.8173587 0.8242404
-## 3   Hepatitis     0.5147707     0.1192983 0.5295777   0.6187397       NaN
-## 4       SPECT     0.5040505     0.5069147 0.5618042   0.5720980       NaN
+## 1       sonar     0.7480762     0.8579451 0.7857310   0.6569545 0.7635814
+## 2    Diabetes     0.8064115     0.8225633 0.8345736   0.8179313 0.8208993
+## 3   Hepatitis     0.5109187     0.1129304 0.5263127   0.6137192       NaN
+## 4       SPECT     0.5027078     0.5273620 0.5635810   0.5725308       NaN
 ##    boosting
-## 1 0.8216711
-## 2 0.8024854
-## 3 0.4607052
-## 4 0.5290502</code></pre>
+## 1 0.8242426
+## 2 0.8052852
+## 3 0.4580854
+## 4 0.5120174</code></pre>
 </div>
 <div id="accuracy-discussion" class="section level1">
 <h1>Accuracy Discussion</h1>
@@ -520,35 +520,34 @@ bagging_sonar &lt;- c(bagging_sonar_performance$accuracy, bagging_sonar_performa
 boosting_sonar &lt;- c(boosting_sonar_performance$accuracy, boosting_sonar_performance$recall, boosting_sonar_performance$precision, boosting_sonar_performance$f1)
 
 SMO_sonar &lt;- c(SMO_sonar_performance$accuracy, SMO_sonar_performance$recall, SMO_sonar_performance$precision, SMO_sonar_performance$f1)
-sprintf(&quot;P-Value: Decision Tree vs Random Forest %.5f&quot;,t.test(decision_trees_sonar,random_forest_sonar)$p.value )</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs Random Forest 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs NB %.5f&quot;,t.test(decision_trees_sonar,NB_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs NB 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs SMO %.5f&quot;,t.test(decision_trees_sonar,SMO_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs SMO 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Bagging %.5f&quot;,t.test(decision_trees_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs Bagging 0.00110&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Boosting %.5f&quot;,t.test(decision_trees_sonar,boosting_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs Boosting 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs NB %.5f&quot;,t.test(random_forest_sonar,NB_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Random Forest vs NB 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs SMO %.5f&quot;,t.test(random_forest_sonar,SMO_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Random Forest vs SMO 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Bagging %.5f&quot;,t.test(random_forest_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Random Forest vs Bagging 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Boosting %.5f&quot;,t.test(random_forest_sonar,boosting_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Random Forest vs Boosting 0.00001&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: NB vs SMO %.5f&quot;,t.test(NB_sonar,SMO_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs SMO 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %.5f&quot;,t.test(NB_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %.5f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %.5f&quot;,t.test(SMO_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00009&quot;</code></pre>
-<pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %.5f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000&quot;</code></pre>
-<p>Which algorithm performs statistically significantly better overall(has the most wins)?</p>
+sprintf(&quot;P-Value: Decision Tree vs Random Forest %0.8f&quot;,t.test(decision_trees_sonar,random_forest_sonar)$p.value )</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs Random Forest 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs NB %0.8f&quot;,t.test(decision_trees_sonar,NB_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs NB 0.00000033&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs SMO %0.8f&quot;,t.test(decision_trees_sonar,SMO_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs SMO 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Bagging %0.8f&quot;,t.test(decision_trees_sonar,bagging_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs Bagging 0.06891366&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Boosting %0.8f&quot;,t.test(decision_trees_sonar,boosting_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs Boosting 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs NB %0.8f&quot;,t.test(random_forest_sonar,NB_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Random Forest vs NB 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs SMO %0.8f&quot;,t.test(random_forest_sonar,SMO_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Random Forest vs SMO 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Bagging %0.8f&quot;,t.test(random_forest_sonar,bagging_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Random Forest vs Bagging 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Boosting %0.8f&quot;,t.test(random_forest_sonar,boosting_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: Random Forest vs Boosting 0.00001074&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: NB vs SMO %0.8f&quot;,t.test(NB_sonar,SMO_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs SMO 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %0.8f&quot;,t.test(NB_sonar,bagging_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00000002&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %0.8f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000000&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %0.8f&quot;,t.test(SMO_sonar,bagging_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00098998&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %0.8f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000000&quot;</code></pre>
 </div>
 <div id="is-there-a-clear-and-only-winner" class="section level3">
 <h3>Is there a clear and only winner?</h3>
@@ -556,6 +555,7 @@ sprintf(&quot;P-Value: Decision Tree vs Random Forest %.5f&quot;,t.test(decision
 </div>
 <div id="interpret-the-results." class="section level3">
 <h3>Interpret the results.</h3>
+<p>The Neural netowrk achived good results but duo it complexity couldn’t be tested duo 10 times 10-fold.</p>
 </div>
 </div>
 

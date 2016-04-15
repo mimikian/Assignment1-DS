@@ -333,5 +333,6 @@ sprintf("P-Value: NB vs Boosting %0.8f",t.test(NB_sonar,boosting_sonar)$p.value)
 There are no clear winner as the perfomrance of the algorithms are quite close to each other.
 
 ###Interpret the results.
+The Random Forest and Boosting achieved good results specially in the F-score measure.
 The Neural netowrk achived good results but duo it complexity couldn't be tested duo 10 times 10-fold.
 
