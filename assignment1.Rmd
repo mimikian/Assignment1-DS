@@ -8,6 +8,16 @@ library(RWeka)
 library(dplyr)
 ```
 
+Load Data Sets
+```{r}
+sonar.df <- read.table("sonar data/sonar.all-data", sep=",")
+diabetes.df <- read.table("pima-indians-diabetes data/pima-indians-diabetes.data", sep=",")
+hepatitis.df <- read.table("hepatitis data/hepatitis.data", sep=",")
+spect1.df <- read.table("SPECT/SPECT.train", sep=",")
+spect2.df <- read.table("SPECT/SPECT.test", sep=",")
+spect.df <- rbind(spect1.df, spect2.df)
+```
+
 Helper Functions:
 ```{r}
 calculate_evaulation_metrics <- function(evaluation){
@@ -16,24 +26,19 @@ calculate_evaulation_metrics <- function(evaluation){
   FN <- confusionMatrix[1,2]
   FP <- confusionMatrix[2,1]
   TN <- confusionMatrix[2,2]
-  percision <- TP/(TP+FP)
+  precision <- TP/(TP+FP)
   recall <- TP/(TP+FN)
-  f1 <- (2*percision*recall)/(percision+recall)
+  f1 <- (2*precision*recall)/(precision+recall)
   acc <- (TP+TN)/(TP+FN+FP+TN)
-  c(percision = percision, recall = recall, f1 = f1, accuracy = acc)
+  data.frame(precision = precision, recall = recall, f1 = f1, accuracy = acc) 
 }
-```
-Load Data
-```{r}
-sonar.df <- read.table("sonar data/sonar", sep=",")
-  
 ```
 
 Using Decision Trees
 ```{r}
-model <- J48(V61~., data=sonar.df)
-summary(model)
-decision_trees_evaluation <- evaluate_Weka_classifier(model, numFolds = 10, seed = 123, class = TRUE)
+decision_trees_model <- J48(V61~., data=sonar.df)
+#summary(decision_trees_model)
+decision_trees_evaluation <- evaluate_Weka_classifier(decision_trees_model, numFolds = 10, class = TRUE)
 #summary(decision_trees_evaluation)
 decision_trees_evaluation$details
 decision_trees_performance <- calculate_evaulation_metrics(decision_trees_evaluation)
@@ -42,10 +47,10 @@ decision_trees_performance
 
 Using Random Forest
 ```{r}
-random_forest_model <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
-random_forest_model <- random_forest_model(V61 ~ ., data = sonar.df)
+random_forest_classifier <- make_Weka_classifier("weka/classifiers/trees/RandomForest")
+random_forest_model <- random_forest_classifier(V61 ~ ., data = sonar.df)
 #summary(random_forest_model)
-randomForest_evaluation <- evaluate_Weka_classifier(random_forest_model, numFolds = 10, seed = 123, class = TRUE)
+randomForest_evaluation <- evaluate_Weka_classifier(random_forest_model, numFolds = 10, class = TRUE)
 #summary(randomForest_evaluation)
 randomForest_evaluation$details
 randomForest_performance <- calculate_evaulation_metrics(randomForest_evaluation)
@@ -53,11 +58,11 @@ randomForest_performance
 ```
 
 
-Using Random Forest
+Using Support Vector 
 ```{r}
 SVM_model <- SMO(V61 ~ ., data = sonar.df)
 #summary(random_forest_model)
-SVM_evaluation <- evaluate_Weka_classifier(SVM_model, numFolds = 10, seed = 123, class = TRUE)
+SVM_evaluation <- evaluate_Weka_classifier(SVM_model, numFolds = 10, class = TRUE)
 #summary(SVM_evaluation)
 SVM_evaluation$details
 SVM_performance <- calculate_evaulation_metrics(SVM_evaluation)
@@ -67,10 +72,10 @@ SVM_performance
 
 Using Naive Bayes
 ```{r}
-NB_model <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
-NB_model <- NB_model(V61 ~ ., data = sonar.df)
+NB_classifier <- make_Weka_classifier("weka/classifiers/bayes/NaiveBayes")
+NB_model <- NB_classifier(V61 ~ ., data = sonar.df)
 summary(NB_model)
-NB_evaluation <- evaluate_Weka_classifier(NB_model, numFolds = 10, seed = 123, class = TRUE)
+NB_evaluation <- evaluate_Weka_classifier(NB_model, numFolds = 10, class = TRUE)
 #summary(NB_evaluation)
 NB_evaluation$details
 NB_performance <- calculate_evaulation_metrics(NB_evaluation)
@@ -80,10 +85,10 @@ NB_performance
 
 Using Neural Netowrks
 ```{r}
-NN_model <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
-NN_model <- NN_model(V61 ~ ., data = sonar.df)
+NN_classifier <- make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+NN_model <- NN_classifier(V61 ~ ., data = sonar.df)
 #summary(NN_model)
-NN_evaluation <- evaluate_Weka_classifier(NN_model, numFolds = 10, seed = 123, class = TRUE)
+NN_evaluation <- evaluate_Weka_classifier(NN_model, numFolds = 10, class = TRUE)
 #summary(NN_evaluation)
 NN_evaluation$details
 NN_performance <- calculate_evaulation_metrics(NN_evaluation)
@@ -96,7 +101,7 @@ Implement and test two of the ensemble learning methods : bagging & boosting, us
 #Bagging
 bagging_model <- Bagging(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 #summary(bagging_model)
-bagging_evaluation <- evaluate_Weka_classifier(bagging_model, numFolds = 10, seed = 123, class = TRUE)
+bagging_evaluation <- evaluate_Weka_classifier(bagging_model, numFolds = 10, class = TRUE)
 #summary(bagging_evaluation)
 bagging_evaluation$details
 bagging_performance <- calculate_evaulation_metrics(bagging_evaluation)
@@ -105,7 +110,7 @@ bagging_performance
 #Boosting
 boosting_model <- AdaBoostM1(V61~., data=sonar.df, control = Weka_control(W = list(J48, M = 30)))
 summary(boosting_model)
-boosting_evaluation <- evaluate_Weka_classifier(boosting_model, numFolds = 10, seed = 123, class = TRUE)
+boosting_evaluation <- evaluate_Weka_classifier(boosting_model, numFolds = 10, class = TRUE)
 #summary(boosting_evaluation)
 boosting_evaluation$details
 boosting_performance <- calculate_evaulation_metrics(boosting_evaluation)
@@ -113,14 +118,154 @@ boosting_performance
 ```
 
 
-Comprison between all
+Comprison between all for the Sonar data
 ```{r}
-rbind(decision_trees_performance, randomForest_performance, SVM_evaluation, NB_performance, NN_performance, bagging_performance, boosting_performance)
+#rbind(decision_trees_performance, randomForest_performance, SVM_evaluation, NB_performance, NN_performance, bagging_performance, boosting_performance)
 ```
 
 
+```{r}
+evaluate_10time_10fold <- function(model){
+  random <- 1:123
+  performance.df <- data.frame(precision = numeric(0), recall = integer(0), f1 = integer(0), accuracy =  integer(0))
+  for(i in 1:10){
+    evaluation <- evaluate_Weka_classifier(model,seed = sample(random,1),numFolds = 10, class = TRUE)
+    tmp <- calculate_evaulation_metrics(evaluation)
+    performance.df <- rbind(performance.df, tmp)
+  }
+  performance.df
+}
+```
 
+# Build Classifiers
+```{r}
+diabetes.df$V9 <- as.factor(diabetes.df$V9)
+hepatitis.df$V20 <- as.factor(hepatitis.df$V20)
+spect.df$V23 <- as.factor(spect.df$V23)
 
+#Decision Trees
+decision_trees_diabetes_model <- J48(V9~., data=diabetes.df)
+decision_trees_hepatitis_model <- J48(V20~., data=hepatitis.df)
+decision_trees_spect_model <- J48(V23~., data=spect.df)
 
+decision_trees_diabetes_performance <- evaluate_10time_10fold(decision_trees_diabetes_model)
+decision_trees_hepatities_performance <- evaluate_10time_10fold(decision_trees_hepatitis_model)
+decision_trees_spect_performance <- evaluate_10time_10fold(decision_trees_spect_model)
+
+#Random Forest
+random_forest_diabetes_model <- random_forest_classifier(V9~., data=diabetes.df)
+random_forest_hepatitis_model <- random_forest_classifier(V20~., data=hepatitis.df)
+random_forest_spect_model <- random_forest_classifier(V23~., data=spect.df)
+
+random_forest_diabetes_performance <- evaluate_10time_10fold(random_forest_diabetes_model)
+random_forest_hepatities_performance <- evaluate_10time_10fold(random_forest_hepatitis_model)
+random_forest_spect_performance <- evaluate_10time_10fold(random_forest_spect_model)
+
+#Support Vector Machines
+SMO_diabetes_model <- SMO(V9~., data=diabetes.df)
+SMO_hepatitis_model <- SMO(V20~., data=hepatitis.df)
+SMO_spect_model <- SMO(V23~., data=spect.df)
+
+SMO_diabetes_performance <- evaluate_10time_10fold(SMO_diabetes_model)
+SMO_hepatities_performance <- evaluate_10time_10fold(SMO_hepatitis_model)
+SMO_spect_performance <- evaluate_10time_10fold(SMO_spect_model)
+
+#Naive Bias
+NB_diabetes_model <- NB_classifier(V9~., data=diabetes.df)
+NB_hepatitis_model <- NB_classifier(V20~., data=hepatitis.df)
+NB_spect_model <- NB_classifier(V23~., data=spect.df)
+
+NB_diabetes_performance <- evaluate_10time_10fold(NB_diabetes_model)
+NB_hepatities_performance <- evaluate_10time_10fold(NB_hepatitis_model)
+NB_spect_performance <- evaluate_10time_10fold(NB_spect_model)
+
+#Neural Networks
+# note: Takes alot of time to compute
+#NN_diabetes_model <- NN_classifier(V9~., data=diabetes.df)
+#NN_hepatitis_model <- NN_classifier(V20~., data=hepatitis.df)
+#NN_spect_model <- NN_classifier(V23~., data=spect.df)
+
+#NB_diabetes_performance <- NN_diabetes_model(NB_diabetes_model)
+#NB_hepatities_performance <- NN_hepatitis_model(NB_hepatitis_model)
+#NB_spect_performance <- NN_spect_model(NB_spect_model)
+
+#Bagging
+bagging_diabetes_model <- Bagging(V9~., data=diabetes.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_hepatitis_model <- Bagging(V20~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
+bagging_spect_model <- Bagging(V23~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+
+bagging_diabetes_performance <- evaluate_10time_10fold(bagging_diabetes_model)
+bagging_hepatities_performance <- evaluate_10time_10fold(bagging_hepatitis_model)
+bagging_spect_performance <- evaluate_10time_10fold(bagging_spect_model)
+
+#Boosting
+boosting_diabetes_model <- AdaBoostM1(V9~., data=diabetes.df, control = Weka_control(W = list(J48, M = 30)))
+boosting_hepatitis_model <- AdaBoostM1(V20~., data=hepatitis.df, control = Weka_control(W = list(J48, M = 30)))
+boosting_spect_model <- AdaBoostM1(V23~., data=spect.df, control = Weka_control(W = list(J48, M = 30)))
+
+boosting_diabetes_performance <- evaluate_10time_10fold(boosting_diabetes_model)
+boosting_hepatities_performance <- evaluate_10time_10fold(boosting_hepatitis_model)
+boosting_spect_performance <- evaluate_10time_10fold(boosting_spect_model)
+```
+
+#Accuarcy Matrix
+```{r}
+accuracy.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Diabetes
+accuracy_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$accuracy),random_forest = mean(random_forest_diabetes_performance$accuracy), svm = mean(SMO_diabetes_performance$accuracy), naive_bayes = mean(NB_diabetes_performance$accuracy), bagging = mean(bagging_diabetes_performance$accuracy), boosting =mean(boosting_diabetes_performance$accuracy))
+accuracy.df <-  rbind(accuracy.df, accuracy_diabetes)
+#Hepatitis
+accuracy_hepatities <- data.frame(datasetName= "Hepatitis",decision_tree =mean(decision_trees_hepatities_performance$accuracy),random_forest = mean(random_forest_hepatities_performance$accuracy), svm = mean(SMO_hepatities_performance$accuracy), naive_bayes = mean(NB_hepatities_performance$accuracy),  bagging = mean(bagging_hepatities_performance$accuracy),boosting = mean(boosting_hepatities_performance$accuracy))
+accuracy.df <-  rbind(accuracy.df, accuracy_hepatities)
+#SPECT
+accuracy_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$accuracy),random_forest = mean(random_forest_spect_performance$accuracy),svm =  mean(SMO_spect_performance$accuracy),naive_bayes = mean(NB_spect_performance$accuracy),bagging =  mean(bagging_spect_performance$accuracy), boosting = mean(boosting_spect_performance$accuracy))
+accuracy.df <-  rbind(accuracy.df, accuracy_spect)
+accuracy.df
+```
+
+#Precision Matrix
+```{r}
+precision.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Diabetes
+precision_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$precision),random_forest = mean(random_forest_diabetes_performance$precision), svm = mean(SMO_diabetes_performance$precision), naive_bayes = mean(NB_diabetes_performance$precision), bagging = mean(bagging_diabetes_performance$precision), boosting =mean(boosting_diabetes_performance$precision))
+precision.df <-  rbind(precision.df, precision_diabetes)
+#Hepatitis
+precision_hepatities <- data.frame(datasetName= "Hepatitis",decision_tree =mean(decision_trees_hepatities_performance$precision),random_forest = mean(random_forest_hepatities_performance$precision), svm = mean(SMO_hepatities_performance$precision), naive_bayes = mean(NB_hepatities_performance$precision),  bagging = mean(bagging_hepatities_performance$precision),boosting = mean(boosting_hepatities_performance$precision))
+precision.df <-  rbind(precision.df, precision_hepatities)
+#SPECT
+precision_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$precision),random_forest = mean(random_forest_spect_performance$precision),svm =  mean(SMO_spect_performance$precision),naive_bayes = mean(NB_spect_performance$precision),bagging =  mean(bagging_spect_performance$precision), boosting = mean(boosting_spect_performance$precision))
+precision.df <-  rbind(precision.df, precision_spect)
+precision.df
+```
+
+#Recall Matrix
+```{r}
+recall.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Diabetes
+recall_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$recall),random_forest = mean(random_forest_diabetes_performance$recall), svm = mean(SMO_diabetes_performance$recall), naive_bayes = mean(NB_diabetes_performance$recall), bagging = mean(bagging_diabetes_performance$recall), boosting =mean(boosting_diabetes_performance$recall))
+recall.df <-  rbind(recall.df, recall_diabetes)
+#Hepatitis
+recall_hepatities <- data.frame(datasetName= "Hepatitis",decision_tree =mean(decision_trees_hepatities_performance$recall),random_forest = mean(random_forest_hepatities_performance$recall), svm = mean(SMO_hepatities_performance$recall), naive_bayes = mean(NB_hepatities_performance$recall),  bagging = mean(bagging_hepatities_performance$recall),boosting = mean(boosting_hepatities_performance$recall))
+recall.df <-  rbind(recall.df, recall_hepatities)
+#SPECT
+recall_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$recall),random_forest = mean(random_forest_spect_performance$recall),svm =  mean(SMO_spect_performance$recall),naive_bayes = mean(NB_spect_performance$recall),bagging =  mean(bagging_spect_performance$recall), boosting = mean(boosting_spect_performance$recall))
+recall.df <-  rbind(recall.df, recall_spect)
+recall.df
+```
+
+#F1 Matrix
+```{r}
+f1.df <- data.frame(datasetName = character(0), decision_tree  = integer(0), random_forest = integer(0), svm =  integer(0), naive_bayes = integer(0), bagging = integer(0), boosting = integer(0))
+#Diabetes
+f1_diabetes <- data.frame(datasetName ="Diabetes",decision_tree = mean(decision_trees_diabetes_performance$f1),random_forest = mean(random_forest_diabetes_performance$f1), svm = mean(SMO_diabetes_performance$f1), naive_bayes = mean(NB_diabetes_performance$f1), bagging = mean(bagging_diabetes_performance$f1), boosting =mean(boosting_diabetes_performance$f1))
+f1.df <-  rbind(f1.df, f1_diabetes)
+#Hepatitis
+f1_hepatities <- data.frame(datasetName= "Hepatitis",decision_tree =mean(decision_trees_hepatities_performance$f1),random_forest = mean(random_forest_hepatities_performance$f1), svm = mean(SMO_hepatities_performance$f1), naive_bayes = mean(NB_hepatities_performance$f1),  bagging = mean(bagging_hepatities_performance$f1),boosting = mean(boosting_hepatities_performance$f1))
+f1.df <-  rbind(f1.df, f1_hepatities)
+#SPECT
+f1_spect <- data.frame(datasetName = "SPECT",decision_tree= mean(decision_trees_spect_performance$f1),random_forest = mean(random_forest_spect_performance$f1),svm =  mean(SMO_spect_performance$f1),naive_bayes = mean(NB_spect_performance$f1),bagging =  mean(bagging_spect_performance$f1), boosting = mean(boosting_spect_performance$f1))
+f1.df <-  rbind(f1.df, f1_spect)
+f1.df
+```
 
 
