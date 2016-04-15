@@ -152,11 +152,11 @@ decision_trees_evaluation &lt;- evaluate_Weka_classifier(decision_trees_model, n
 #summary(decision_trees_evaluation)
 decision_trees_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               77.4038462               22.5961538                0.0000000 
+##               75.0000000               25.0000000                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5463152                0.2264571                0.4535341 
+##                0.5022549                0.2509711                0.4828144 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               45.4901666               90.9017824</code></pre>
+##               50.4144812               96.7704363</code></pre>
 <pre class="r"><code>decision_trees_performance &lt;- calculate_evaulation_metrics(decision_trees_evaluation)
 decision_trees_performance %&gt;% kable</code></pre>
 <table>
@@ -170,10 +170,10 @@ decision_trees_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.7909091</td>
-<td align="right">0.7837838</td>
-<td align="right">0.7873303</td>
-<td align="right">0.7740385</td>
+<td align="right">0.8041237</td>
+<td align="right">0.7027027</td>
+<td align="right">0.75</td>
+<td align="right">0.75</td>
 </tr>
 </tbody>
 </table>
@@ -185,11 +185,11 @@ randomForest_evaluation &lt;- evaluate_Weka_classifier(random_forest_model, numF
 #summary(randomForest_evaluation)
 randomForest_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               83.6538462               16.3461538                0.0000000 
+##               81.7307692               18.2692308                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.6681370                0.3028846                0.3488511 
+##                0.6295810                0.3078846                0.3559521 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               60.8427345               69.9201901</code></pre>
+##               61.8471225               71.3434425</code></pre>
 <pre class="r"><code>randomForest_performance &lt;- calculate_evaulation_metrics(randomForest_evaluation)
 randomForest_performance %&gt;% kable</code></pre>
 <table>
@@ -203,10 +203,10 @@ randomForest_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8031496</td>
-<td align="right">0.9189189</td>
-<td align="right">0.8571429</td>
-<td align="right">0.8365385</td>
+<td align="right">0.792</td>
+<td align="right">0.8918919</td>
+<td align="right">0.8389831</td>
+<td align="right">0.8173077</td>
 </tr>
 </tbody>
 </table>
@@ -217,11 +217,11 @@ SVM_evaluation &lt;- evaluate_Weka_classifier(SVM_model, numFolds = 10, class = 
 #summary(SVM_evaluation)
 SVM_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               78.8461538               21.1538462                0.0000000 
+##               75.9615385               24.0384615                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5738896                0.2115385                0.4599331 
+##                0.5170428                0.2403846                0.4902903 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               42.4933384               92.1843354</code></pre>
+##               48.2878845               98.2688317</code></pre>
 <pre class="r"><code>SVM_performance &lt;- calculate_evaulation_metrics(SVM_evaluation)
 SVM_performance %&gt;% kable</code></pre>
 <table>
@@ -235,10 +235,10 @@ SVM_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.7913043</td>
-<td align="right">0.8198198</td>
-<td align="right">0.8053097</td>
-<td align="right">0.7884615</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7596154</td>
 </tr>
 </tbody>
 </table>
@@ -269,11 +269,11 @@ summary(NB_model)</code></pre>
 #summary(NB_evaluation)
 NB_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               67.3076923               32.6923077                0.0000000 
+##               67.7884615               32.2115385                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.3557438                0.3185960                0.5370966 
+##                0.3664303                0.3124712                0.5272623 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               63.9987985              107.6501995</code></pre>
+##               62.7684596              105.6791116</code></pre>
 <pre class="r"><code>NB_performance &lt;- calculate_evaulation_metrics(NB_evaluation)
 NB_performance %&gt;% kable</code></pre>
 <table>
@@ -287,10 +287,10 @@ NB_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.7654321</td>
-<td align="right">0.5585586</td>
-<td align="right">0.6458333</td>
-<td align="right">0.6730769</td>
+<td align="right">0.7820513</td>
+<td align="right">0.5495495</td>
+<td align="right">0.6455026</td>
+<td align="right">0.6778846</td>
 </tr>
 </tbody>
 </table>
@@ -302,11 +302,11 @@ NN_evaluation &lt;- evaluate_Weka_classifier(NN_model, numFolds = 10, class = TR
 #summary(NN_evaluation)
 NN_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               83.1730769               16.8269231                0.0000000 
+##               82.2115385               17.7884615                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.6612693                0.1823603                0.3904537 
+##                0.6419133                0.1883472                0.3901221 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               36.6320997               78.2585779</code></pre>
+##               37.8347422               78.1921142</code></pre>
 <pre class="r"><code>NN_performance &lt;- calculate_evaulation_metrics(NN_evaluation)
 NN_performance %&gt;% kable</code></pre>
 <table>
@@ -320,10 +320,10 @@ NN_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8333333</td>
-<td align="right">0.8558559</td>
-<td align="right">0.8444444</td>
-<td align="right">0.8317308</td>
+<td align="right">0.8245614</td>
+<td align="right">0.8468468</td>
+<td align="right">0.8355556</td>
+<td align="right">0.8221154</td>
 </tr>
 </tbody>
 </table>
@@ -335,11 +335,11 @@ bagging_evaluation &lt;- evaluate_Weka_classifier(bagging_model, numFolds = 10, 
 #summary(bagging_evaluation)
 bagging_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               76.4423077               23.5576923                0.0000000 
+##               77.8846154               22.1153846                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5226677                0.3048562                0.3851224 
+##                0.5527718                0.3075632                0.3872417 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               61.2387865               77.1900314</code></pre>
+##               61.7825503               77.6148018</code></pre>
 <pre class="r"><code>bagging_performance &lt;- calculate_evaulation_metrics(bagging_evaluation)
 bagging_performance %&gt;% kable</code></pre>
 <table>
@@ -353,10 +353,10 @@ bagging_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.75</td>
+<td align="right">0.768595</td>
 <td align="right">0.8378378</td>
-<td align="right">0.7914894</td>
-<td align="right">0.7644231</td>
+<td align="right">0.8017241</td>
+<td align="right">0.7788462</td>
 </tr>
 </tbody>
 </table>
@@ -386,11 +386,11 @@ summary(boosting_model)</code></pre>
 #summary(boosting_evaluation)
 boosting_evaluation$details</code></pre>
 <pre><code>##               pctCorrect             pctIncorrect          pctUnclassified 
-##               79.3269231               20.6730769                0.0000000 
+##               80.7692308               19.2307692                0.0000000 
 ##                    kappa        meanAbsoluteError     rootMeanSquaredError 
-##                0.5843866                0.2246873                0.4085190 
+##                0.6126269                0.2016057                0.3837364 
 ##    relativeAbsoluteError rootRelativeSquaredError 
-##               45.1346384               81.8794089</code></pre>
+##               40.4980618               76.9122300</code></pre>
 <pre class="r"><code>boosting_performance &lt;- calculate_evaulation_metrics(boosting_evaluation)
 boosting_performance %&gt;% kable</code></pre>
 <table>
@@ -404,10 +404,10 @@ boosting_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.8035714</td>
-<td align="right">0.8108108</td>
-<td align="right">0.8071749</td>
-<td align="right">0.7932692</td>
+<td align="right">0.8086957</td>
+<td align="right">0.8378378</td>
+<td align="right">0.8230088</td>
+<td align="right">0.8076923</td>
 </tr>
 </tbody>
 </table>
@@ -424,46 +424,46 @@ boosting_performance %&gt;% kable</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.7909091</td>
-<td align="right">0.7837838</td>
-<td align="right">0.7873303</td>
-<td align="right">0.7740385</td>
-</tr>
-<tr class="even">
-<td align="right">0.8031496</td>
-<td align="right">0.9189189</td>
-<td align="right">0.8571429</td>
-<td align="right">0.8365385</td>
-</tr>
-<tr class="odd">
-<td align="right">0.7913043</td>
-<td align="right">0.8198198</td>
-<td align="right">0.8053097</td>
-<td align="right">0.7884615</td>
-</tr>
-<tr class="even">
-<td align="right">0.7654321</td>
-<td align="right">0.5585586</td>
-<td align="right">0.6458333</td>
-<td align="right">0.6730769</td>
-</tr>
-<tr class="odd">
-<td align="right">0.8333333</td>
-<td align="right">0.8558559</td>
-<td align="right">0.8444444</td>
-<td align="right">0.8317308</td>
-</tr>
-<tr class="even">
+<td align="right">0.8041237</td>
+<td align="right">0.7027027</td>
 <td align="right">0.7500000</td>
-<td align="right">0.8378378</td>
-<td align="right">0.7914894</td>
-<td align="right">0.7644231</td>
+<td align="right">0.7500000</td>
+</tr>
+<tr class="even">
+<td align="right">0.7920000</td>
+<td align="right">0.8918919</td>
+<td align="right">0.8389831</td>
+<td align="right">0.8173077</td>
 </tr>
 <tr class="odd">
-<td align="right">0.8035714</td>
-<td align="right">0.8108108</td>
-<td align="right">0.8071749</td>
-<td align="right">0.7932692</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7747748</td>
+<td align="right">0.7596154</td>
+</tr>
+<tr class="even">
+<td align="right">0.7820513</td>
+<td align="right">0.5495495</td>
+<td align="right">0.6455026</td>
+<td align="right">0.6778846</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8245614</td>
+<td align="right">0.8468468</td>
+<td align="right">0.8355556</td>
+<td align="right">0.8221154</td>
+</tr>
+<tr class="even">
+<td align="right">0.7685950</td>
+<td align="right">0.8378378</td>
+<td align="right">0.8017241</td>
+<td align="right">0.7788462</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8086957</td>
+<td align="right">0.8378378</td>
+<td align="right">0.8230088</td>
+<td align="right">0.8076923</td>
 </tr>
 </tbody>
 </table>
@@ -593,39 +593,39 @@ accuracy.df %&gt;% kable</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">Sonar</td>
-<td align="right">0.7225962</td>
-<td align="right">0.8288462</td>
-<td align="right">0.7778846</td>
+<td align="right">0.7254808</td>
+<td align="right">0.8346154</td>
+<td align="right">0.7730769</td>
 <td align="right">0.6788462</td>
-<td align="right">0.7399038</td>
-<td align="right">0.8086538</td>
+<td align="right">0.7360577</td>
+<td align="right">0.7927885</td>
 </tr>
 <tr class="even">
 <td align="left">Diabetes</td>
-<td align="right">0.7454427</td>
-<td align="right">0.7570312</td>
-<td align="right">0.7708333</td>
-<td align="right">0.7572917</td>
-<td align="right">0.7567708</td>
-<td align="right">0.7393229</td>
+<td align="right">0.7421875</td>
+<td align="right">0.7604167</td>
+<td align="right">0.7691406</td>
+<td align="right">0.7536458</td>
+<td align="right">0.7608073</td>
+<td align="right">0.7377604</td>
 </tr>
 <tr class="odd">
 <td align="left">Hepatitis</td>
-<td align="right">0.8290323</td>
-<td align="right">0.7987097</td>
-<td align="right">0.8070968</td>
-<td align="right">0.8258065</td>
+<td align="right">0.8329032</td>
+<td align="right">0.8000000</td>
+<td align="right">0.8051613</td>
+<td align="right">0.8251613</td>
 <td align="right">0.7935484</td>
-<td align="right">0.7954839</td>
+<td align="right">0.7922581</td>
 </tr>
 <tr class="even">
 <td align="left">SPECT</td>
-<td align="right">0.8153558</td>
-<td align="right">0.8194757</td>
-<td align="right">0.8295880</td>
-<td align="right">0.7662921</td>
-<td align="right">0.7940075</td>
-<td align="right">0.8220974</td>
+<td align="right">0.8048689</td>
+<td align="right">0.8205993</td>
+<td align="right">0.8258427</td>
+<td align="right">0.7666667</td>
+<td align="right">0.7925094</td>
+<td align="right">0.8168539</td>
 </tr>
 </tbody>
 </table>
@@ -661,39 +661,39 @@ precision.df %&gt;% kable</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7398210</td>
-<td align="right">0.8016968</td>
-<td align="right">0.7833882</td>
-<td align="right">0.7639396</td>
-<td align="right">0.7351984</td>
-<td align="right">0.8120397</td>
+<td align="right">0.7400681</td>
+<td align="right">0.8080506</td>
+<td align="right">0.7798644</td>
+<td align="right">0.7669716</td>
+<td align="right">0.7295610</td>
+<td align="right">0.8006881</td>
 </tr>
 <tr class="even">
 <td align="left">Diabetes</td>
-<td align="right">0.7874103</td>
-<td align="right">0.7946922</td>
-<td align="right">0.7826257</td>
-<td align="right">0.7984469</td>
-<td align="right">0.7867443</td>
-<td align="right">0.7833693</td>
+<td align="right">0.7871758</td>
+<td align="right">0.7987138</td>
+<td align="right">0.7813454</td>
+<td align="right">0.7953283</td>
+<td align="right">0.7871217</td>
+<td align="right">0.7886730</td>
 </tr>
 <tr class="odd">
 <td align="left">Hepatitis</td>
-<td align="right">0.6279687</td>
-<td align="right">0.8083333</td>
-<td align="right">0.5346063</td>
-<td align="right">0.5625847</td>
+<td align="right">0.6395727</td>
+<td align="right">0.6533333</td>
+<td align="right">0.5293368</td>
+<td align="right">0.5617464</td>
 <td align="right">NaN</td>
-<td align="right">0.5046319</td>
+<td align="right">0.4946007</td>
 </tr>
 <tr class="even">
 <td align="left">SPECT</td>
-<td align="right">0.5640370</td>
-<td align="right">0.5748057</td>
-<td align="right">0.5983055</td>
-<td align="right">0.4594997</td>
+<td align="right">0.5301489</td>
+<td align="right">0.5794086</td>
+<td align="right">0.5881497</td>
+<td align="right">0.4600883</td>
 <td align="right">NaN</td>
-<td align="right">0.5863084</td>
+<td align="right">0.5711243</td>
 </tr>
 </tbody>
 </table>
@@ -730,39 +730,39 @@ recall.df %&gt;% kable</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7414414</td>
-<td align="right">0.9027027</td>
-<td align="right">0.8072072</td>
-<td align="right">0.5765766</td>
-<td align="right">0.8018018</td>
-<td align="right">0.8342342</td>
+<td align="right">0.7495495</td>
+<td align="right">0.9054054</td>
+<td align="right">0.8009009</td>
+<td align="right">0.5720721</td>
+<td align="right">0.8036036</td>
+<td align="right">0.8144144</td>
 </tr>
 <tr class="even">
 <td align="left">Diabetes</td>
-<td align="right">0.8344000</td>
-<td align="right">0.8452000</td>
-<td align="right">0.8972000</td>
-<td align="right">0.8390000</td>
-<td align="right">0.8594000</td>
-<td align="right">0.8290000</td>
+<td align="right">0.8280000</td>
+<td align="right">0.8450000</td>
+<td align="right">0.8962000</td>
+<td align="right">0.8370000</td>
+<td align="right">0.8672000</td>
+<td align="right">0.8160000</td>
 </tr>
 <tr class="odd">
 <td align="left">Hepatitis</td>
-<td align="right">0.4250000</td>
-<td align="right">0.0437500</td>
-<td align="right">0.5125000</td>
-<td align="right">0.7031250</td>
+<td align="right">0.4375000</td>
+<td align="right">0.0687500</td>
+<td align="right">0.5218750</td>
+<td align="right">0.6968750</td>
 <td align="right">0.0000000</td>
-<td align="right">0.3968750</td>
+<td align="right">0.4187500</td>
 </tr>
 <tr class="even">
 <td align="left">SPECT</td>
-<td align="right">0.4690909</td>
-<td align="right">0.4781818</td>
-<td align="right">0.5272727</td>
-<td align="right">0.7581818</td>
-<td align="right">0.0000000</td>
 <td align="right">0.4727273</td>
+<td align="right">0.4745455</td>
+<td align="right">0.5181818</td>
+<td align="right">0.7618182</td>
+<td align="right">0.0036364</td>
+<td align="right">0.4581818</td>
 </tr>
 </tbody>
 </table>
@@ -798,43 +798,43 @@ f1.df %&gt;% kable</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">sonar</td>
-<td align="right">0.7402819</td>
-<td align="right">0.8491390</td>
-<td align="right">0.7949909</td>
-<td align="right">0.6570735</td>
-<td align="right">0.7669528</td>
-<td align="right">0.8226936</td>
+<td align="right">0.7444818</td>
+<td align="right">0.8538610</td>
+<td align="right">0.7901933</td>
+<td align="right">0.6552722</td>
+<td align="right">0.7647085</td>
+<td align="right">0.8072762</td>
 </tr>
 <tr class="even">
 <td align="left">Diabetes</td>
-<td align="right">0.8101529</td>
-<td align="right">0.8191550</td>
-<td align="right">0.8360010</td>
-<td align="right">0.8182178</td>
-<td align="right">0.8214497</td>
-<td align="right">0.8054930</td>
+<td align="right">0.8069981</td>
+<td align="right">0.8211846</td>
+<td align="right">0.8348386</td>
+<td align="right">0.8156259</td>
+<td align="right">0.8252056</td>
+<td align="right">0.8019885</td>
 </tr>
 <tr class="odd">
 <td align="left">Hepatitis</td>
-<td align="right">0.5064010</td>
-<td align="right">0.0815915</td>
-<td align="right">0.5228155</td>
-<td align="right">0.6247364</td>
+<td align="right">0.5193990</td>
+<td align="right">0.1237116</td>
+<td align="right">0.5249752</td>
+<td align="right">0.6219977</td>
 <td align="right">NaN</td>
-<td align="right">0.4435424</td>
+<td align="right">0.4514011</td>
 </tr>
 <tr class="even">
 <td align="left">SPECT</td>
-<td align="right">0.5115337</td>
-<td align="right">0.5217702</td>
-<td align="right">0.5602070</td>
-<td align="right">0.5721111</td>
+<td align="right">0.4994039</td>
+<td align="right">0.5216181</td>
+<td align="right">0.5505791</td>
+<td align="right">0.5736368</td>
 <td align="right">NaN</td>
-<td align="right">0.5228003</td>
+<td align="right">0.5076564</td>
 </tr>
 </tbody>
 </table>
-<p>Results: The Random Forest and Boosting achieved good results specially in the F-score measure. The Decision trees achived the worst results</p>
+<p>Results: The Random Forest SVM and boosting achieved good results specially in the F-score measure. The Decision trees achived the worst results</p>
 <div id="t-test" class="section level3">
 <h3>T-Test</h3>
 <p>We will check if two algorithms are statistically significant by applyting t-test and checking if the p-value less thatn 0.05</p>
@@ -853,11 +853,11 @@ SMO_sonar &lt;- c(SMO_sonar_performance$accuracy, SMO_sonar_performance$recall, 
 sprintf(&quot;P-Value: Decision Tree vs Random Forest %0.8f&quot;,t.test(decision_trees_sonar,random_forest_sonar)$p.value )</code></pre>
 <pre><code>## [1] &quot;P-Value: Decision Tree vs Random Forest 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs NB %0.8f&quot;,t.test(decision_trees_sonar,NB_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs NB 0.00000036&quot;</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs NB 0.00000022&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs SMO %0.8f&quot;,t.test(decision_trees_sonar,SMO_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: Decision Tree vs SMO 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Bagging %0.8f&quot;,t.test(decision_trees_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Decision Tree vs Bagging 0.00005710&quot;</code></pre>
+<pre><code>## [1] &quot;P-Value: Decision Tree vs Bagging 0.00613657&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Decision Tree vs Boosting %0.8f&quot;,t.test(decision_trees_sonar,boosting_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: Decision Tree vs Boosting 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs NB %0.8f&quot;,t.test(random_forest_sonar,NB_sonar)$p.value)</code></pre>
@@ -867,7 +867,7 @@ sprintf(&quot;P-Value: Decision Tree vs Random Forest %0.8f&quot;,t.test(decisio
 <pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Bagging %0.8f&quot;,t.test(random_forest_sonar,bagging_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: Random Forest vs Bagging 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: Random Forest vs Boosting %0.8f&quot;,t.test(random_forest_sonar,boosting_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: Random Forest vs Boosting 0.00392741&quot;</code></pre>
+<pre><code>## [1] &quot;P-Value: Random Forest vs Boosting 0.00000006&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: NB vs SMO %0.8f&quot;,t.test(NB_sonar,SMO_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: NB vs SMO 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %0.8f&quot;,t.test(NB_sonar,bagging_sonar)$p.value)</code></pre>
@@ -875,17 +875,17 @@ sprintf(&quot;P-Value: Decision Tree vs Random Forest %0.8f&quot;,t.test(decisio
 <pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %0.8f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000000&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: NB vs Bagging %0.8f&quot;,t.test(SMO_sonar,bagging_sonar)$p.value)</code></pre>
-<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00000449&quot;</code></pre>
+<pre><code>## [1] &quot;P-Value: NB vs Bagging 0.00004272&quot;</code></pre>
 <pre class="r"><code>sprintf(&quot;P-Value: NB vs Boosting %0.8f&quot;,t.test(NB_sonar,boosting_sonar)$p.value)</code></pre>
 <pre><code>## [1] &quot;P-Value: NB vs Boosting 0.00000000&quot;</code></pre>
 </div>
 <div id="is-there-a-clear-and-only-winner" class="section level3">
 <h3>Is there a clear and only winner?</h3>
-<p>There are no clear winner as the perfomrance of the algorithms are quite close to each other.</p>
+<p>There are no clear winner as the perfomrance of the algorithms are quite close to each other. For example: Random forest achieved better results in the sonar dataset. However SVM and Boosting achived better results in the rest of the data sets. So, every data set has its own algorithm that which achives better results.</p>
 </div>
 <div id="interpret-the-results." class="section level3">
 <h3>Interpret the results.</h3>
-<p>The Random Forest and Boosting achieved good results specially in the F-score measure. The Neural netowrk achived good results but duo it complexity couldn’t be tested duo 10 times 10-fold.</p>
+<p>Overall Random Forest and SVM were good solutions specially in the F-score measure. The Neural netowrk achived good results but duo it complexity couldn’t be tested duo 10 times 10-fold.</p>
 </div>
 </div>
 
